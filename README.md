@@ -20,7 +20,21 @@ Once the model is trained, the face recognition system will use it to perform th
 
 
 ## API Description
+The Face Recognition API is a programming interface that provides access to the core functionalities of the face recognition system. The API allows developers to easily integrate the face recognition system into their own applications and services, and provides a simple and intuitive interface for image processing, feature extraction, model inference, and result display.
 
+The Face Recognition API consists of several modules, each with its own set of functions and parameters:
+
+Image Processing: This module provides functions for loading, resizing, cropping, and normalizing face images. Developers can use these functions to preprocess images before passing them to the feature extraction module.
+
+Feature Extraction: This module provides functions for extracting facial features from input images. The functions use deep learning models to extract features such as face landmarks, embeddings, and descriptors.
+
+Model Inference: This module provides functions for loading, training, and evaluating deep learning models. Developers can use these functions to train their own models or use pre-trained models for face recognition.
+
+Result Display: This module provides functions for visualizing the results of the face recognition system. Developers can use these functions to display the detected faces, recognized faces, and confidence scores in the input images.
+
+To use the Face Recognition API, developers need to first install the necessary software libraries and dependencies, including C++, Python, Pybind11, and the deep learning framework (such as PyTorch or TensorFlow). They can then import the API modules into their own code and call the functions as needed.
+
+The Face Recognition API is designed to be flexible and customizable, allowing developers to fine-tune the parameters and configurations to fit their own requirements.
 
 ## Engineering Infrastructure
 ### Automatic build system and how to build your program
@@ -32,9 +46,9 @@ Once the model is trained, the face recognition system will use it to perform th
 
 ### Programing Language
 
-- Video split function, Face feature extract, Camera function and image pre-processing function will be completed by C++.
+- Face image crop, Camera function and image pre-processing function will be completed by C++.
 
-- face reconition function and Generate the report function will be completed by Python.
+- Face reconition function and Generate the report function will be completed by Python.
 
 ### Make-Pybind-Pytest
 
