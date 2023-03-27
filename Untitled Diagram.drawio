@@ -1,9 +1,57 @@
-<mxfile host="app.diagrams.net" modified="2023-03-27T03:11:03.369Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36" version="21.1.1" etag="Y14GIVvi95b4Jp-Z5tYs" type="github">
+<mxfile host="app.diagrams.net" modified="2023-03-27T03:24:11.638Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36" etag="gdiOQ5L5pXs_xB5x4-MU" version="21.1.1" type="github">
   <diagram name="Page-1" id="WcTO5IpIux_uVo2jrHdH">
-    <mxGraphModel>
+    <mxGraphModel dx="989" dy="575" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="EY6FXH6scHwMH0ayiLKt-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EY6FXH6scHwMH0ayiLKt-2" target="EY6FXH6scHwMH0ayiLKt-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EY6FXH6scHwMH0ayiLKt-2" value="Input" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="130" y="90" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="EY6FXH6scHwMH0ayiLKt-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="EY6FXH6scHwMH0ayiLKt-3" target="EY6FXH6scHwMH0ayiLKt-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EY6FXH6scHwMH0ayiLKt-3" value="build Haar Cascade face classifier" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="105" y="160" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="EY6FXH6scHwMH0ayiLKt-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EY6FXH6scHwMH0ayiLKt-4" target="EY6FXH6scHwMH0ayiLKt-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EY6FXH6scHwMH0ayiLKt-4" value="extract face feature" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="230" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="EY6FXH6scHwMH0ayiLKt-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EY6FXH6scHwMH0ayiLKt-5" target="EY6FXH6scHwMH0ayiLKt-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EY6FXH6scHwMH0ayiLKt-5" value="crop the face from whole image" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="240" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="EY6FXH6scHwMH0ayiLKt-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="EY6FXH6scHwMH0ayiLKt-9" target="EY6FXH6scHwMH0ayiLKt-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EY6FXH6scHwMH0ayiLKt-9" value="trans image to array(matrix)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="115" y="340" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="EY6FXH6scHwMH0ayiLKt-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="EY6FXH6scHwMH0ayiLKt-11" target="EY6FXH6scHwMH0ayiLKt-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EY6FXH6scHwMH0ayiLKt-11" value="pass array to python" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="90" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="EY6FXH6scHwMH0ayiLKt-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EY6FXH6scHwMH0ayiLKt-12" target="EY6FXH6scHwMH0ayiLKt-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EY6FXH6scHwMH0ayiLKt-12" value="put into model" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="160" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="EY6FXH6scHwMH0ayiLKt-13" value="Compare&amp;nbsp;Similarity" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="285" y="300" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="EY6FXH6scHwMH0ayiLKt-18" value="Output" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="285" y="370" width="110" height="30" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
