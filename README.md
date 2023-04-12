@@ -11,7 +11,7 @@ Face recognition is a challenging task in computer vision that has numerous appl
 
 ## Prospective Users
 
-The face recognition system has numerous potential users, including security and surveillance companies, law enforcement agencies, and government organizations. The system can be used for applications such as access control, identity verification, and criminal investigation. Moreover, the system can also be used in human-computer interaction scenarios, such as user identification and personalized content delivery. 
+The face recognition system has numerous potential users, including security and surveillance companies, law enforcement agencies, and government organizations. The system can be used for applications such as access control, identity verification, and criminal investigation. Moreover, the system can also be used in human-computer interaction scenarios, such as user identification. 
 
 ## System Architecture
 The deep learning model will be built using a convolutional neural network (CNN) architecture, which has been shown to be effective for face recognition tasks. The model will be trained using a large dataset of face images, such as the popular Labeled Faces in the Wild (LFW) dataset, and will use techniques such as data augmentation, regularization, and optimization to improve its performance.
@@ -24,13 +24,13 @@ The Face Recognition API is a programming interface that provides access to the 
 
 The Face Recognition API consists of several modules, each with its own set of functions and parameters:
 
-Image Processing: This module provides functions for loading, resizing, cropping, and normalizing face images. Developers can use these functions to preprocess images before passing them to the feature extraction module.
+1 . Image Processing: This module provides functions for loading, resizing, cropping, and normalizing face images. Developers can use these functions to preprocess images before passing them to the feature extraction module.
 
-Feature Extraction: This module provides functions for extracting facial features from input images. The functions use deep learning models to extract features such as face landmarks, embeddings, and descriptors.
+2 .Feature Extraction: This module provides functions for extracting facial features from input images. The functions use deep learning models to extract features such as face landmarks, embeddings, and descriptors.
 
-Model Inference: This module provides functions for loading, training, and evaluating deep learning models. Developers can use these functions to train their own models or use pre-trained models for face recognition.
+3 .Model Inference: This module provides functions for loading, training, and evaluating deep learning models. Developers can use these functions to train their own models or use pre-trained models for face recognition.
 
-Result Display: This module provides functions for visualizing the results of the face recognition system. Developers can use these functions to display the detected faces, recognized faces, and confidence scores in the input images.
+4 . Result Display: This module provides functions for visualizing the results of the face recognition system. Developers can use these functions to display the detected faces, recognized faces, and confidence scores in the input images.
 
 To use the Face Recognition API, developers need to first install the necessary software libraries and dependencies, including C++, Python, Pybind11, and the deep learning framework (such as PyTorch or TensorFlow). They can then import the API modules into their own code and call the functions as needed.
 
