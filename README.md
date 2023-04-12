@@ -16,12 +16,11 @@ The face recognition system has numerous potential users, including security and
 ## System Architecture
 The deep learning model will be built using a convolutional neural network (CNN) architecture, which has been shown to be effective for face recognition tasks. The model will be trained using a large dataset of face images, such as the popular Labeled Faces in the Wild (LFW) dataset, and will use techniques such as data augmentation, regularization, and optimization to improve its performance.
 
-Once the model is trained, the face recognition system will use it to perform the recognition task on new images. The system will first pre-process the input image using C++ functions to normalize the image, crop the face region, and extract features. The pre-processed image will then be passed to the Python code for classification using the trained deep learning model. Finally, the system will display the results, such as the detected face and the corresponding identity.
+Once the model is builded, the face recognition system will use it to perform the recognition task on new images. The system will first pre-process the input image using C++ functions to normalize the image, crop the face region, and extract features. The pre-processed image will then be passed to the Python code for classification using the trained deep learning model. Finally, the system will display the results, such as the detected face and the corresponding identity.
 
 ![image](https://github.com/luuun1216/Face-Recognition-System/blob/main/Architecture.png)
 
 ## API Description
-The Face Recognition API is a programming interface that provides access to the core functionalities of the face recognition system. The API allows developers to easily integrate the face recognition system into their own applications and services, and provides a simple and intuitive interface for image processing, feature extraction, model inference, and result display.
 
 The Face Recognition API consists of several modules, each with its own set of functions and parameters:
 
@@ -34,8 +33,6 @@ The Face Recognition API consists of several modules, each with its own set of f
 4 . Result Display: This module provides functions for visualizing the results of the face recognition system. Developers can use these functions to display the detected faces, recognized faces, and confidence scores in the input images.
 
 To use the Face Recognition API, developers need to first install the necessary software libraries and dependencies, including C++, Python, Pybind11, and the deep learning framework (such as PyTorch or TensorFlow). They can then import the API modules into their own code and call the functions as needed.
-
-The Face Recognition API is designed to be flexible and customizable, allowing developers to fine-tune the parameters and configurations to fit their own requirements.
 
 ## Engineering Infrastructure
 ### Automatic build system and how to build your program
