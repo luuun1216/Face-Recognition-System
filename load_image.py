@@ -33,12 +33,18 @@ def main():
                 break
 
             # Process the frame using the C++ extension
-            processed_frame = image_processing.process_image(frame)
+            result = image_processing.process_image(frame)
+            original_frame_with_rectangles = result[0]
+            cropped_faces = result[1:]
             
 
-            # Display the original and processed frames
-            cv2.imshow('Original', frame)
+            # Display the original frame with rectangles
+            cv2.imshow('Original', original_frame_with_rectangles)
             # cv2.imshow('Processed', processed_frame)
+
+            # Display each cropped face
+            for i, face in enumerate(cropped_faces):
+                cv2.imshow(f'Face {i + 1}', face)
 
             # Press 'q' to exit the loop
             if cv2.waitKey(1) == ord('q'):

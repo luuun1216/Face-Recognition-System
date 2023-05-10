@@ -14,12 +14,12 @@ using namespace std;
 using namespace cv;
 namespace py = pybind11;
 
-cv::Mat process_image(cv::Mat &input_image) {
-    cv::Mat faces_images;
+std::vector<cv::Mat> process_image(cv::Mat &input_image) {
     cv::Mat frame_gray;
-    std::vector<Rect> faces;
-    String face_cascade_name = "../source/haarcascade_frontalface_default.xml";
-    CascadeClassifier face_cascade;
+    std::vector<cv::Rect> faces;
+    std::vector<cv::Mat> result;
+    std::string face_cascade_name = "../source/haarcascade_frontalface_default.xml";
+    cv::CascadeClassifier face_cascade;
     /* Load cascade classifiers */
 	if(!face_cascade.load(face_cascade_name))
 		cout << "Error loading face cascade";
@@ -38,12 +38,16 @@ cv::Mat process_image(cv::Mat &input_image) {
         /* Draw rectangular on face */
         rectangle(input_image, faces[i], Scalar(255, 0, 0), 3, 8, 0);
         
-        // cv::Mat faceROI = frame_gray(faces[i]);
-        // /* Add face ROI to vector */
-        // faces_images.push_back(faceROI);
-    }
+        // Crop the face
+        cv::Mat faceROI = input_image(faces[i]);
 
-    return input_image;
+        // Add face ROI to the result vector
+        result.push_back(faceROI);
+    }
+    // Add the original image with rectangles to the result vector
+    result.insert(result.begin(), input_image);
+
+    return result;
 }
 
 cv::Mat numpy_uint8_3c_to_cv_mat(py::array_t<unsigned char> &input_array) {
@@ -58,18 +62,23 @@ cv::Mat numpy_uint8_1c_to_cv_mat(py::array_t<unsigned char> &input_array) {
     return mat;
 }
 
-py::array_t<unsigned char> cv_mat_to_numpy_uint8_3c(cv::Mat &mat) {
-    return py::array_t<unsigned char>({mat.rows, mat.cols, 3}, mat.data);
+py::array_t<unsigned char> cv_mat_to_numpy_uint8_3c(const cv::Mat &mat) {
+    // return py::array_t<unsigned char>({mat.rows, mat.cols, 3}, mat.data);
+    return py::array_t<unsigned char>({mat.rows, mat.cols, 3}, {mat.step[0], mat.step[1], sizeof(unsigned char)}, mat.data);
 }
 
 py::array_t<unsigned char> cv_mat_to_numpy_uint8_1c(cv::Mat &mat) {
     return py::array_t<unsigned char>({mat.rows, mat.cols}, mat.data);
 }
 
-py::array_t<unsigned char> process_image_pybind(py::array_t<unsigned char> &input_array) {
+py::list process_image_pybind(py::array_t<unsigned char> &input_array) {
     cv::Mat input_image = numpy_uint8_3c_to_cv_mat(input_array);
-    cv::Mat output_image = process_image(input_image);
-    return cv_mat_to_numpy_uint8_1c(output_image);
+    std::vector<cv::Mat> output_images = process_image(input_image);
+    py::list result;
+    for (const auto& img : output_images) {
+        result.append(cv_mat_to_numpy_uint8_3c(img));
+    }
+    return result;
 }
 
 PYBIND11_MODULE(image_processing, m) {
