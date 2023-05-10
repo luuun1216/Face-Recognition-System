@@ -33,20 +33,40 @@ std::vector<cv::Mat> process_image(cv::Mat &input_image) {
     cv::equalizeHist(frame_gray, frame_gray);
     
     face_cascade.detectMultiScale(frame_gray, faces, 1.1, 5, CASCADE_SCALE_IMAGE, Size(30, 30));
-    for (size_t i = 0; i < faces.size(); i++)
-    {
-        /* Draw rectangular on face */
-        rectangle(input_image, faces[i], Scalar(255, 0, 0), 3, 8, 0);
+    
+    // for (size_t i = 0; i < faces.size(); i++)
+    // {
+    //     /* Draw rectangular on face */
+    //     rectangle(input_image, faces[i], Scalar(255, 0, 0), 3, 8, 0);
         
-        // Crop the face
-        cv::Mat faceROI = input_image(faces[i]);
+    //     // Crop the face
+    //     cv::Mat faceROI = input_image(faces[i]);
 
-        // Add face ROI to the result vector
+    //     // Add face ROI to the result vector
+    //     result.push_back(faceROI);
+    // }
+    // // Add the original image with rectangles to the result vector
+    // result.insert(result.begin(), input_image);
+
+    if (!faces.empty()) {
+        // Find the largest face
+        auto largest_face = std::max_element(faces.begin(), faces.end(),
+                                             [](const cv::Rect &a, const cv::Rect &b) {
+                                                 return a.area() < b.area();
+                                             });
+
+        // Draw a rectangle on the largest face
+        cv::rectangle(input_image, *largest_face, cv::Scalar(255, 0, 0), 3, 8, 0);
+
+        // Crop the largest face
+        cv::Mat faceROI = input_image(*largest_face);
+
+        // Add the largest face ROI to the result vector
         result.push_back(faceROI);
     }
+
     // Add the original image with rectangles to the result vector
     result.insert(result.begin(), input_image);
-
     return result;
 }
 
