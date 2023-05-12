@@ -39,7 +39,7 @@ std::tuple<cv::Mat, cv::Mat, cv::Rect> process_image(cv::Mat &input_image) {
                                              });
 
         // Draw a rectangle on the largest face
-        cv::rectangle(input_image, *largest_face, cv::Scalar(255, 0, 0), 3, 8, 0);
+        // cv::rectangle(input_image, *largest_face, cv::Scalar(255, 0, 0), 3, 8, 0);
 
         // Crop the largest face
         cropped_face = input_image(*largest_face);
