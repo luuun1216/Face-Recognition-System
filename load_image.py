@@ -42,10 +42,14 @@ def main():
             # Display the original frame with rectangles
             cv2.imshow('Original', original_frame_with_rectangles)
 
-            # Display the cropped face if available
+            # # Display each cropped face
+            # for i, face in enumerate(cropped_faces):
+            #     cv2.imshow(f'Face {i + 1}', face)
+            #     # cv2.imwrite('output.jpg', face)
+
             if cropped_face.size > 0:
                 cv2.imshow('Cropped Face', cropped_face)
-
+                cv2.imwrite('output.jpg', cropped_face)
             # Press 'q' to exit the loop
             if cv2.waitKey(1) == ord('q'):
                 break
