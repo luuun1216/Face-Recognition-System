@@ -1,7 +1,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <vector>
-
+#include <tuple>
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
@@ -14,39 +14,22 @@ using namespace std;
 using namespace cv;
 namespace py = pybind11;
 
-std::vector<cv::Mat> process_image(cv::Mat &input_image) {
-    cv::Mat frame_gray;
+std::tuple<cv::Mat, cv::Mat, cv::Rect> process_image(cv::Mat &input_image) {
+    cv::Mat frame_gray, cropped_face;
+    cv::Rect largest_face_bbox;
     std::vector<cv::Rect> faces;
-    std::vector<cv::Mat> result;
     std::string face_cascade_name = "../source/haarcascade_frontalface_default.xml";
     cv::CascadeClassifier face_cascade;
-    /* Load cascade classifiers */
-	if(!face_cascade.load(face_cascade_name))
-		cout << "Error loading face cascade";
 
-    /* test code - only for BGR2gray */
-    // Perform your image processing here, for example, convert to grayscale
-    // cv::cvtColor(input_image, output_image, cv::COLOR_BGR2GRAY);
-    
-    cv::cvtColor(input_image, frame_gray, COLOR_BGR2GRAY);
+    // Load cascade classifiers
+    if (!face_cascade.load(face_cascade_name)) {
+        std::cout << "Error loading face cascade" << std::endl;
+    }
 
+    cv::cvtColor(input_image, frame_gray, cv::COLOR_BGR2GRAY);
     cv::equalizeHist(frame_gray, frame_gray);
-    
-    face_cascade.detectMultiScale(frame_gray, faces, 1.1, 5, CASCADE_SCALE_IMAGE, Size(30, 30));
-    
-    // for (size_t i = 0; i < faces.size(); i++)
-    // {
-    //     /* Draw rectangular on face */
-    //     rectangle(input_image, faces[i], Scalar(255, 0, 0), 3, 8, 0);
-        
-    //     // Crop the face
-    //     cv::Mat faceROI = input_image(faces[i]);
 
-    //     // Add face ROI to the result vector
-    //     result.push_back(faceROI);
-    // }
-    // // Add the original image with rectangles to the result vector
-    // result.insert(result.begin(), input_image);
+    face_cascade.detectMultiScale(frame_gray, faces, 1.1, 5, cv::CASCADE_SCALE_IMAGE, cv::Size(30, 30));
 
     if (!faces.empty()) {
         // Find the largest face
@@ -59,15 +42,13 @@ std::vector<cv::Mat> process_image(cv::Mat &input_image) {
         cv::rectangle(input_image, *largest_face, cv::Scalar(255, 0, 0), 3, 8, 0);
 
         // Crop the largest face
-        cv::Mat faceROI = input_image(*largest_face);
+        cropped_face = input_image(*largest_face);
 
-        // Add the largest face ROI to the result vector
-        result.push_back(faceROI);
+        // Save the largest face bounding box
+        largest_face_bbox = *largest_face;
     }
 
-    // Add the original image with rectangles to the result vector
-    result.insert(result.begin(), input_image);
-    return result;
+    return std::make_tuple(input_image, cropped_face, largest_face_bbox);
 }
 
 cv::Mat numpy_uint8_3c_to_cv_mat(py::array_t<unsigned char> &input_array) {
@@ -91,14 +72,15 @@ py::array_t<unsigned char> cv_mat_to_numpy_uint8_1c(cv::Mat &mat) {
     return py::array_t<unsigned char>({mat.rows, mat.cols}, mat.data);
 }
 
-py::list process_image_pybind(py::array_t<unsigned char> &input_array) {
+py::tuple process_image_pybind(py::array_t<unsigned char> &input_array) {
     cv::Mat input_image = numpy_uint8_3c_to_cv_mat(input_array);
-    std::vector<cv::Mat> output_images = process_image(input_image);
-    py::list result;
-    for (const auto& img : output_images) {
-        result.append(cv_mat_to_numpy_uint8_3c(img));
-    }
-    return result;
+    cv::Mat original_image, cropped_face;
+    cv::Rect face_bbox;
+    std::tie(original_image, cropped_face, face_bbox) = process_image(input_image);
+
+    return py::make_tuple(cv_mat_to_numpy_uint8_3c(original_image),
+                          cv_mat_to_numpy_uint8_3c(cropped_face),
+                          py::make_tuple(face_bbox.x, face_bbox.y, face_bbox.width, face_bbox.height));
 }
 
 PYBIND11_MODULE(image_processing, m) {
