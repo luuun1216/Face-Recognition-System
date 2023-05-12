@@ -34,17 +34,17 @@ def main():
 
             # Process the frame using the C++ extension
             result = image_processing.process_image(frame)
-            original_frame_with_rectangles = result[0]
-            cropped_faces = result[1:]
+            original_frame_with_rectangles, cropped_face, face_bbox = result
+            x, y, w, h = face_bbox
             
+            print(f"Bounding box coordinates: x={x}, y={y}, width={w}, height={h}")
 
             # Display the original frame with rectangles
             cv2.imshow('Original', original_frame_with_rectangles)
-            # cv2.imshow('Processed', processed_frame)
 
-            # Display each cropped face
-            for i, face in enumerate(cropped_faces):
-                cv2.imshow(f'Face {i + 1}', face)
+            # Display the cropped face if available
+            if cropped_face.size > 0:
+                cv2.imshow('Cropped Face', cropped_face)
 
             # Press 'q' to exit the loop
             if cv2.waitKey(1) == ord('q'):
